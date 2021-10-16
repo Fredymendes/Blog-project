@@ -17,6 +17,5 @@
                 </ul>
             </nav>
         </header>
-        <?= $content ?>
     </body>
 </html>
