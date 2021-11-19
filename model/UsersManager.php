@@ -3,7 +3,8 @@ require_once("model/Manager.php");
 
 class UsersManager extends Manager
 {
-   function register($lastname, $firstname, $pseudo, $email, $password){
+   function register($lastname, $firstname, $pseudo, $email, $password)
+   {
      $db = $this->dbConnect(); 
      $registerUsers = $db->prepare('INSERT INTO 
      users(lastname, firstname, pseudo, email, password, 
@@ -18,8 +19,8 @@ class UsersManager extends Manager
      ));
    }
 
-   function connected($pseudo)
-   {
+function connected($pseudo)
+{
    $db = $this->dbConnect();  
    $connected = $db->prepare('SELECT idUsers, password FROM users 
    WHERE pseudo = :pseudo');
@@ -30,6 +31,6 @@ class UsersManager extends Manager
 }
    
 }
-   
+
 
 
