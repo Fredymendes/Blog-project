@@ -31,8 +31,6 @@
     </div>
     <div class="argument-hero">
         <form method="POST" action="index.php?action=contentValid">
-        <input type="file" name="photo"> 
-        <br />  
         <label for="title">Titre :</label>
         <br />
         <input type="text" name="title" value="">
@@ -43,11 +41,9 @@
         <br />
         <label for="content">Contenu :</label>
         <br />
-        <textarea name="content" 
-        rows="5" cols="33" placeholder="Il était une fois..."></textarea>
+        <textarea name="content" placeholder="Il était une fois..."></textarea>
         <br />
-        <button class="btn btn-primary text-uppercase" id="submitButton"
-        name="submit" type="submit">Printer</button>
+        <button class="btn btn-primary text-uppercase" id="submitButton" name="submit" type="submit">Printer</button>
         <br>
         </form>
     </div>
