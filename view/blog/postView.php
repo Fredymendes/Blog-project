@@ -25,23 +25,22 @@
 </article>
 <hr class="my-4" /> 
 
-<div class="news">
-<form method="POST" action="">
-    <label for="message">Message :</label><br>
-    <textarea id="message" name="message" cols="50" rows="7"></textarea><br>
-     
-    <input type="submit" value="Envoyer le message">
-</form> 
-
 <?php
 while ($comment = $comments->fetch())
 {
 ?>
-    <p><strong><?= htmlspecialchars($comment['pseudo']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
+    <p><strong><?= htmlspecialchars($comment['pseudo']) ?></strong> le <?= htmlspecialchars($comment['comment_date_fr']) ?></p>
     <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
-    <?php
+    <hr class="my-4" /> 
+<?php
 }
 ?>
+<div class="news">
+<form method="POST" action="index.php?action=commentValid&amp;id=<?= $post['idPosts'] ?>">
+    <label for="comment">Message :</label><br>
+    <textarea id="message" name="comment" cols="50" rows="7"></textarea><br>
+    <input type="submit" class="btn btn-primary text-uppercase" name="submit" value="Envoyer le message">
+</form> 
 </div>
 <?php $content = ob_get_clean(); ?>
 
