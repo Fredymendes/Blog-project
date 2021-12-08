@@ -16,6 +16,7 @@
 <?php
 while ($data = $posts->fetch())
 {
+    
 ?>
 
 <!-- Main Content-->
