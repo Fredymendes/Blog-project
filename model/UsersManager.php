@@ -22,7 +22,7 @@ class UsersManager extends Manager
 function connected($pseudo)
 {
    $db = $this->dbConnect();  
-   $connected = $db->prepare('SELECT idUsers, password FROM users 
+   $connected = $db->prepare('SELECT idUsers, role, password FROM users 
    WHERE pseudo = :pseudo');
    $connected->execute(array(
       'pseudo' => $pseudo
