@@ -1,8 +1,9 @@
 <?php
-
-// Chargement des classes
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
+require_once('model/UsersManager.php');
+
+
 
 function listPosts()
 {
@@ -23,16 +24,22 @@ function post()
     require('view/blog/postView.php');
 }
 
-function addComment($postId, $author, $comment)
+function addComment($postId, $comment)
 {
     $commentManager = new CommentManager();
-
-    $affectedLines = $commentManager->postComment($postId, $author, $comment);
-
-    if ($affectedLines === false) {
-        throw new Exception('Impossible d\'ajouter le commentaire !');
+    if (!isset($_POST['comment']) AND
+        !isset($_POST['idPosts'])
+        )
+    {
+        echo('Le commentaire est invalide.');
+        return;
     }
-    else {
-        header('Location: index.php?action=post&id=' . $postId);
+    
+    if (!isset($_SESSION['idUsers'])) {
+        echo('Vous devez être authentifié pour soumettre un commentaire');
+        return;
+    } else {
+        $comment = $commentManager->postComment($postId, $comment);
+        header('Location: index.php?action=post&id=' .$postId);
     }
 }
