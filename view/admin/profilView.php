@@ -1,8 +1,6 @@
 <?php require('view/blog/headView.php'); ?>
 <?php require('view/blog/navigatorView.php'); ?>
 
-
-
 <!DOCTYPE html>
 <html>
 <header class="masthead" style="background-image: url('public/assets/img/home-bg.jpg')">
@@ -10,7 +8,9 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1><?php if (isset($_SESSION['idUsers']) AND isset($_SESSION['pseudo'])){echo 'Bonjour ' . $_SESSION['pseudo'];}?></h1>
+                    <h1><?php if (isset($_SESSION['idUsers']) and isset($_SESSION['pseudo'])) {
+                        echo 'Bonjour ' . $_SESSION['pseudo'];
+                        }?></h1>
                 </div>
             </div>
         </div>

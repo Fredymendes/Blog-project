@@ -9,11 +9,11 @@
 <body>
     <div class="container">
         <h1>Liste des articles</h1>
-        <?php foreach($posts->fetchAll() as $post){ ?>
+        <?php foreach ($posts as $post) { ?>
             <article>
-                <h2><?= htmlspecialchars($post['title']) ?></h2>
-                <h3><?= htmlspecialchars($post['wording']) ?></h3>
-                <p><?= substr(nl2br(htmlspecialchars($post['content'])), 0, 200) . '...' ?></p>
+                <h2><?= htmlspecialchars($post->getTitle()) ?></h2>
+                <h3><?= htmlspecialchars($post->getWording()) ?></h3>
+                <p><?= substr(nl2br(htmlspecialchars($post->getContent())), 0, 200) . '...' ?></p>
             </article>
             <button><a href="index.php?action=updateId&id=<?= $post['idPosts'] ?>">Modifier</a></button>
             <button><a href="index.php?action=deleteId&id=<?= $post['idPosts'] ?>">Supprimer</a></button>

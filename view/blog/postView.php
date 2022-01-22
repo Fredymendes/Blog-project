@@ -3,8 +3,8 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1><?= htmlspecialchars($post['title']) ?></h1>
-                    <span class="subheading"><?= htmlspecialchars($post['wording']) ?></span>
+                    <h1><?= htmlspecialchars($post->getTitle()) ?></h1>
+                    <span class="subheading"><?= htmlspecialchars($post->getWording()) ?></span>
                 </div>
             </div>
         </div>
@@ -18,25 +18,25 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <h3></h3>
-                <p><?= nl2br(htmlspecialchars($post['content'])) ?></p>
+                <p><?= nl2br(htmlspecialchars($post->getContent())) ?></p>
             </div>
         </div>
     </div>
 </article>
 <hr class="my-4" /> 
-
+<!--à faire-->
 <?php
-while ($comment = $comments->fetch())
-{
-?>
-    <p><strong><?= htmlspecialchars($comment['pseudo']) ?></strong> le <?= htmlspecialchars($comment['comment_date_fr']) ?></p>
-    <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
+foreach ($comments as $comment) {
+    ?>
+    <p><strong><?= htmlspecialchars($comment->getIdUsers()) ?></strong> 
+    le <?= htmlspecialchars($comment->getCommentDate()) ?></p>
+    <p><?= nl2br(htmlspecialchars($comment->getComment())) ?></p>
     <hr class="my-4" /> 
-<?php
+    <?php
 }
 ?>
 <div class="news">
-<form method="POST" action="index.php?action=commentValid&amp;id=<?= $post['idPosts'] ?>">
+<form method="POST" action="index.php?action=commentValid&amp;id=<?= $post->getPostId() ?>">
     <label for="comment">Message :</label><br>
     <textarea id="message" name="comment" cols="50" rows="7"></textarea><br>
     <input type="submit" class="btn btn-primary text-uppercase" name="submit" value="Envoyer le message">

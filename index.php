@@ -1,61 +1,74 @@
 <?php
+
 session_start();
-require('controller/frontend.php');
-require('controller/backend.php');
+use App\Autoloader;
+use App\Controller\BackendController;
+use App\Controller\FrontendController;
+
+require_once 'libraries/Autoloader.php';
+Autoloader::register();
+
+
+$backend = new BackendController();
+$frontend = new FrontendController();
 
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'listPosts') {
-        listPosts();
-    }
-    else if($_GET['action'] == 'post') {
+        $frontend->listPosts();
+    } elseif ($_GET['action'] == 'post') {
         if (isset($_GET['id']) && $_GET['id'] > 0) {
-            post();
+            $frontend->post();
         } else {
             echo 'Erreur : aucune informations identifié';
         }
-    }
-    elseif ($_GET['action'] == 'about') {
-        showAbout();
-    } else if ($_GET['action'] == 'register') {
-        showRegister();
-    } else if ($_GET['action'] == 'connect') {
-        showConnect();
-    } else if ($_GET['action'] == 'profil') {
-        adminConnect();
-    } else if ($_GET['action'] == 'forms') {
-        formConnect();
-    } else if ($_GET['action'] == 'article') {
-        showArticle();
-    } else if ($_GET['action'] == 'updateId') {
-        showUpdatePost($_GET['id']);
-    } else if ($_GET['action'] == 'updateValid') {
-        updatePost($_GET['id'], $_POST['title'], $_POST['wording'], $_POST['content']);
-    } else if ($_GET['action'] == 'deleteId') {
-        showDeletePost($_GET['id']);
-    } else if ($_GET['action'] == 'deleteValid') {
-        deletePost($_GET['id']);
-    } else if ($_GET['action'] == 'commentValid') {
-        addComment($_GET['id'], $_POST['comment']);
-    } else if ($_GET['action'] == 'registerValid') {
-        addRegister($_POST['lastname'], $_POST['firstname'],
-         $_POST['pseudo'], $_POST['email'], $_POST['password']);
-    } else if ($_GET['action'] == 'connectValid') {
-        addConnect($_POST['pseudo']);
-    } else if ($_GET['action'] == 'formValid') {
-        addForm($_POST['lastname'], $_POST['firstname'], 
-        $_POST['typeDemande'], $_POST['email'], $_POST['message']);
-    } else if ($_GET['action'] == 'contentValid') {
-        addContent($_POST['title'], $_POST['wording'], $_POST['content']);
-    } else if ($_GET['action'] == 'deconnexion') {
+    } elseif ($_GET['action'] == 'about') {
+        $backend->showAbout();
+    } elseif ($_GET['action'] == 'register') {
+        $backend->showRegister();
+    } elseif ($_GET['action'] == 'connect') {
+        $backend->showConnect();
+    } elseif ($_GET['action'] == 'profil') {
+        $backend->adminConnect();
+    } elseif ($_GET['action'] == 'forms') {
+        $backend->formConnect();
+    } elseif ($_GET['action'] == 'article') {
+        $backend->showArticle();
+    } elseif ($_GET['action'] == 'updateId') {
+        $backend->showUpdatePost($_GET['id']);
+    } elseif ($_GET['action'] == 'updateValid') {
+        $backend->updatePost($_GET['id'], $_POST['title'], $_POST['wording'], $_POST['content']);
+    } elseif ($_GET['action'] == 'deleteId') {
+        $backend->showDeletePost($_GET['id']);
+    } elseif ($_GET['action'] == 'deleteValid') {
+        $backend->deletePost($_GET['id']);
+    } elseif ($_GET['action'] == 'commentValid') {
+        $frontend->addComment($_GET['id'], $_POST['comment']);
+    } elseif ($_GET['action'] == 'registerValid') {
+        $backend->addRegister(
+            $_POST['lastname'],
+            $_POST['firstname'],
+            $_POST['pseudo'],
+            $_POST['email'],
+            $_POST['password']
+        );
+    } elseif ($_GET['action'] == 'connectValid') {
+        $backend->addConnect($_POST['pseudo']);
+    } elseif ($_GET['action'] == 'formValid') {
+        $backend->addForm(
+            $_POST['lastname'],
+            $_POST['firstname'],
+            $_POST['typeDemande'],
+            $_POST['email'],
+            $_POST['message']
+        );
+    } elseif ($_GET['action'] == 'contentValid') {
+        $backend->addContent($_POST['title'], $_POST['wording'], $_POST['content']);
+    } elseif ($_GET['action'] == 'deconnexion') {
         session_start();
         session_destroy();
         header('location: index.php');
         exit;
     }
 } else {
-    listPosts();
+    $frontend->listPosts();
 }
-//faire une page erreur
-//revoir le projet
-//faire des commentaires sur chaque élément
-//terminé le design

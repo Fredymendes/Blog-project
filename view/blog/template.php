@@ -6,7 +6,7 @@
 <?php require('view/blog/navigatorView.php'); ?>
 <body>
     <?= $content ?>
-    <!-- Footer -->
+<!-- Footer -->
     <?php require('view/blog/footerView.php'); ?>
 </body>
 </html>

@@ -14,29 +14,27 @@
 <?php ob_start()?>
 
 <?php
-while ($data = $posts->fetch())
-{
-    
-?>
-
+while ($post = $data->fetch()) {
+    ?>
 <!-- Main Content-->
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
             <!-- Post preview-->
             <div class="post-preview">
-                <a href="index.php?action=post&amp;id=<?= $data['idPosts'] ?>">
-                <h2 class="post-title"><?= htmlspecialchars($data['title']) ?><em> le <?= $data['creation_date_fr'] ?></em></h2>
-                <h3 class="post-subtitle"><?= nl2br(htmlspecialchars($data['wording']))?></h3>
+                <a href="index.php?action=post&amp;id=<?= $post->getPostId() ?>">
+                <h2 class="post-title"><?= htmlspecialchars($post->getTitle()) ?>
+                <em> le <?= htmlspecialchars($post->getCreationDate()) ?></em></h2>
+                <h3 class="post-subtitle"><?= nl2br(htmlspecialchars($post->getWording()))?></h3>
                 </a>
-                <p class="post-meta"><?= substr(nl2br(htmlspecialchars($data['content'])), 0, 300) . '...'?></p>
+                <p class="post-meta"><?= substr(nl2br(htmlspecialchars($$post->getContent())), 0, 300) . '...'?></p>
             </div>
         </div>
     </div>
 </div>
 <!-- Divider-->
 <hr class="my-4" />    
-<?php
+    <?php
 }
 $posts->closeCursor();
 ?>

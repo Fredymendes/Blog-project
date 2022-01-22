@@ -5,20 +5,20 @@
   </ul>
 </nav>
 <div class="argument-hero">
-        <form method="POST" action="index.php?action=updateValid&id=<?= $id ?>">
+        <form method="POST" action="index.php?action=updateValid&id=<?= $updatePost->getPostId() ?>">
         <br />  
         <label for="title">Titre :</label>
         <br />
-        <input type="text" name="title" value="<?= $post['title']?>">
+        <input type="text" name="title" value="<?= $updatePost->getTitle() ?>">
         <br />
         <label for="wording">Châpo :</label>
         <br />
-        <input type="text" name="wording" value="<?= $post['wording']?>">
+        <input type="text" name="wording" value="<?= $updatePost->getWording() ?>">
         <br />
         <label for="content">Contenu :</label>
         <br />
         <textarea name="content" 
-        rows="5" cols="33" placeholder="Il était une fois..."><?= $post['content']?></textarea>
+        rows="5" cols="33" placeholder="Il était une fois..."><?= $updatePost->getContent() ?></textarea>
         <br />
         <button class="btn btn-primary text-uppercase" id="submitButton"
         name="submit" type="submit">Mise à jour du post</button>
