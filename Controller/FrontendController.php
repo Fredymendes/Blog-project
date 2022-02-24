@@ -24,7 +24,7 @@ class FrontendController
         $commentManager = new CommentManager();
         $post = $postManager->getPost($_GET['id']);
         $listComments = $commentManager->getComments($_GET['id']);
-        
+
         require('view/blog/postView.php');
     }
 
@@ -70,5 +70,4 @@ class FrontendController
         $commentManager->deleteComments($_GET['id']);
         header('Location: index.php?action=comment');
     }
-
 }

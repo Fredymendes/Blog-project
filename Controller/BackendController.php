@@ -95,8 +95,8 @@ class BackendController
 
         if (isset($_POST['submit'])) {
             if (
-                empty($_POST['lastname']) or empty($_POST['firstname']) or empty($_POST['pseudo']) or empty($_POST['email'])
-                or empty($_POST['password'])
+                empty($_POST['lastname']) or empty($_POST['firstname']) or empty($_POST['pseudo'])
+                or empty($_POST['email']) or empty($_POST['password'])
             ) {
                 $_SESSION['message'] = "Vous n'avez pas remplit tous les champs...";
             } else {
