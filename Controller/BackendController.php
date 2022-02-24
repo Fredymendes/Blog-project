@@ -11,11 +11,11 @@ use App\model\Post;
 
 class BackendController
 {
-    //Fonction qui permet la visibilité des views
     public function showAbout()
     {
         require('view/blog/aboutView.php');
     }
+
     public function showRegister()
     {
         require('view/admin/registerView.php');
@@ -33,83 +33,80 @@ class BackendController
 
     public function formConnect()
     {
-        require('view/admin/formView.php');
+        require('view/blog/aboutView.php');
     }
 
-    // Fonction qui appelle les models
-    public function showArticle()
+    public function showDeleteValid($deletePost)
     {
         $postManager = new PostManager();
-        $postManager->getPosts();
-        require('view/users/articleView.php');
-    }
-
-    public function showUpdatePost($updatePost)
-    {
-        $postManager = new PostManager();
-        $updatePost = $postManager->getPost($updatePost);
-        require('view/users/editPostView.php');
-    }
-
-    public function updatePost($postData)//$id, $title, $wording, $content
-    {
-        $postManager = new PostManager();
-        if (!isset($_POST['title']) or !isset($_POST['wording']) or !isset($_POST['content'])) {
-            echo "Oups le post n'est pas passée...";
-            return;
-        } else {
-            $postData = new Post([
-                'idUsers' => $_SESSION['idUsers'],
-                'title' => $_POST['title'],
-                'wording' => $_POST['wording'],
-                'content' => $_POST['content']
-            ]);
-            $postManager->updatePost($postData);
-            header("Location: index.php?action=article");
-            echo 'Post envoyé';
-        }
-    }
-
-    public function showDeletePost($id)
-    {
-        $postManager = new PostManager();
-        $delete = $postManager->deletePost($id);
+        $delete = $postManager->getPost($deletePost);
         require('view/users/deletePostView.php');
     }
 
-    public function deletePost($id)
+    public function deletePost($deletePost)
     {
         $postManager = new PostManager();
         if (!isset($_GET['id'])) {
             echo "Oups le post est absent...";
             return;
         } else {
-            $update = $postManager->deletePost($id);
+            $postManager->deletePost($_GET['id']);
             header("Location: index.php?action=article");
             echo 'Suppression éffectué';
         }
     }
 
-    public function addRegister($users)//$lastname, $firstname, $pseudo, $email, $password
+    public function showArticle()
+    {
+        $postManager = new PostManager();
+        $posts = $postManager->getPosts();
+        require('view/users/articleView.php');
+    }
+
+    public function showUpdatePost($updatePost)
+    {
+        $postManager = new PostManager();
+        $update = $postManager->getPost($updatePost);
+        require('view/users/editPostView.php');
+    }
+
+    public function updatePost($updatePost)
+    {
+        $postManager = new PostManager();
+        if (!isset($_POST['title']) or !isset($_POST['wording']) or !isset($_POST['content'])) {
+            echo "Oups le post n'est pas passée...";
+            return;
+        } else {
+            $updatePost = new Post([
+                'title' => $_POST['title'],
+                'wording' => $_POST['wording'],
+                'content' => $_POST['content'],
+                'idPosts' => $_GET['id']
+            ]);
+            $update = $postManager->updatePost($updatePost);
+            header("Location: index.php?action=article");
+            echo "Post envoyé";
+        }
+    }
+
+    public function addRegister($users)
     {
         $usersManager = new UsersManager();
 
         if (isset($_POST['submit'])) {
             if (
-                empty($_POST['lastname']) or empty($_POST['firstname'])
-                or empty($_POST['pseudo']) or empty($_POST['email'])
+                empty($_POST['lastname']) or empty($_POST['firstname']) or empty($_POST['pseudo']) or empty($_POST['email'])
                 or empty($_POST['password'])
             ) {
-                echo "Vous n'avez pas remplit tous les champs...";
+                $_SESSION['message'] = "Vous n'avez pas remplit tous les champs...";
             } else {
                 $users = new Users([
                 'lastname' => $_POST['lastname'],
                 'firstname' => $_POST['firstname'],
                 'pseudo' => $_POST['pseudo'],
                 'email' => $_POST['email'],
-                'password' => $_POST['password']
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
                 ]);
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $usersManager->register($users);
                 echo "Inscription réussi !";
             }
@@ -140,14 +137,14 @@ class BackendController
         require('view/admin/connexionView.php');
     }
 
-    public function addContent($postData)//$title, $wording, $content
+    public function addContent($postData)
     {
         $contentPost = new PostManager();
 
         if (isset($_POST['submit'])) {
             if (empty($_POST['title']) or empty($_POST['wording']) or empty($_POST['content'])) {
                 echo "Oups le post n'est pas passée...";
-            } elseif ($_SESSION['idusers'] == 1) {
+            } elseif ($_SESSION['idUsers'] == 1) {
                 $postData = new Post([
                     'idUsers' => $_SESSION['idUsers'],
                     'title' => $_POST['title'],
@@ -192,9 +189,8 @@ class BackendController
                 'X-Mailer' => 'PHP/' . phpversion()
                 );
                 mail($to, $subject, $message, $headers);
-                $_SESSION['message'] = 'Message envoyé';
             }
         }
-        require('view/admin/formView.php');
+        require('view/blog/aboutView.php');
     }
 }

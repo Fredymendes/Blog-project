@@ -2,32 +2,15 @@
 
 namespace App\model;
 
-class Comment
+class Comment extends Entity
 {
     private $idComments;
     private $idUsers;
-    private $postId;
+    private $pseudo;
+    private $idPosts;
     private $comment;
     private $comment_date;
-    private $modify_comment_date;
 
-    public function __construct(array $donnees = [])
-    {
-        $this->hydrate($donnees);
-    }
-    public function hydrate(array $donnees)
-    {
-        foreach ($donnees as $key => $value) {
-            // On récupère le nom du setter correspondant à l'attribut
-            $method = 'set' . ucfirst($key);
-
-            // Si le setter correspondant existe.
-            if (method_exists($this, $method)) {
-                // On appelle le setter
-                $this->$method($value);
-            }
-        }
-    }
     //Getters
     public function getIdComments()
     {
@@ -39,9 +22,14 @@ class Comment
         return $this->idUsers;
     }
 
-    public function getPostId()
+    public function getPseudo()
     {
-        return $this->postId;
+        return $this->pseudo;
+    }
+
+    public function getIdPosts()
+    {
+        return $this->idPosts;
     }
 
     public function getComment()
@@ -54,13 +42,8 @@ class Comment
         return $this->comment_date;
     }
 
-    public function getModifyDate()
-    {
-        return $this->modify_comment_date;
-    }
-
     //Setters
-    public function setIdComment($idComments)
+    public function setIdComments($idComments)
     {
         $idComments = (int) $idComments;
 
@@ -71,15 +54,26 @@ class Comment
 
     public function setIdUsers($idUsers)
     {
-        $this->idUsers = $idUsers;
+        $idUsers = (int) $idUsers;
+
+        if ($idUsers > 0) {
+            $this->idUsers = $idUsers;
+        }
     }
 
-    public function setPostId($postId)
+    public function setPseudo($pseudo)
     {
-        $postId = (int) $postId;
+        if (is_string($pseudo)) {
+            $this->pseudo = $pseudo;
+        }
+    }
 
-        if ($postId > 0) {
-            $this->postId = $postId;
+    public function setIdPosts($idPosts)
+    {
+        $idPosts = (int) $idPosts;
+
+        if ($idPosts > 0) {
+            $this->idPosts = $idPosts;
         }
     }
 
@@ -92,13 +86,8 @@ class Comment
 
     public function setCommentDate($comment_date)
     {
-        $this->comment_date = $comment_date;
-    }
-
-    public function setModifyDate($modify_comment_date)
-    {
-        if (is_string($modify_comment_date)) {
-            $this->modify_Comment_date = $modify_comment_date;
+        if (is_string($comment_date)) {
+            $this->comment_date = $comment_date;
         }
     }
 }

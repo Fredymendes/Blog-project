@@ -13,7 +13,7 @@ $backend = new BackendController();
 $frontend = new FrontendController();
 
 if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'listPosts') {
+    if ($_GET['action'] == 'blogPost') {
         $frontend->listPosts();
     } elseif ($_GET['action'] == 'post') {
         if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -21,8 +21,6 @@ if (isset($_GET['action'])) {
         } else {
             echo 'Erreur : aucune informations identifié';
         }
-    } elseif ($_GET['action'] == 'about') {
-        $backend->showAbout();
     } elseif ($_GET['action'] == 'register') {
         $backend->showRegister();
     } elseif ($_GET['action'] == 'connect') {
@@ -33,16 +31,22 @@ if (isset($_GET['action'])) {
         $backend->formConnect();
     } elseif ($_GET['action'] == 'article') {
         $backend->showArticle();
+    } elseif ($_GET['action'] == 'comment') {
+        $frontend->showComment();
     } elseif ($_GET['action'] == 'updateId') {
         $backend->showUpdatePost($_GET['id']);
     } elseif ($_GET['action'] == 'updateValid') {
         $backend->updatePost($_GET['id'], $_POST['title'], $_POST['wording'], $_POST['content']);
     } elseif ($_GET['action'] == 'deleteId') {
-        $backend->showDeletePost($_GET['id']);
+        $backend->showDeleteValid($_GET['id']);
     } elseif ($_GET['action'] == 'deleteValid') {
         $backend->deletePost($_GET['id']);
     } elseif ($_GET['action'] == 'commentValid') {
-        $frontend->addComment($_GET['id'], $_POST['comment']);
+        $frontend->postComment($_GET['id'], $_POST['comment']);
+    } elseif ($_GET['action'] == 'updateComment') {
+        $frontend->updateComment($_GET['id'], $_POST['comment']);
+    } elseif ($_GET['action'] == 'deleteComment') {
+        $frontend->deleteComment($_GET['id']);
     } elseif ($_GET['action'] == 'registerValid') {
         $backend->addRegister(
             $_POST['lastname'],
@@ -70,5 +74,5 @@ if (isset($_GET['action'])) {
         exit;
     }
 } else {
-    $frontend->listPosts();
+    $backend->showAbout();
 }

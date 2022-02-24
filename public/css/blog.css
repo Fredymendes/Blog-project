@@ -1,0 +1,62 @@
+.hero {
+    border-radius: 50%;
+    width: 200px;
+}
+
+ul, li {
+    list-style: none;
+}
+
+.admin-bar {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 2px 2px rgba(0,0,0,.2);
+}
+
+#hero-admin {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.menu {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-decoration: underline;
+}
+
+.menu-content {
+    display: flex;
+    float: left;
+    box-shadow: 10px 5px 5px black;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 auto;
+    padding: 10px 10px 10px 10px;
+    border: 1px solid black;
+}
+
+#post-content {
+    margin: 0 auto;
+    padding: 11px 30px 0 30px;
+}
+
+#post-content, form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#content, #content-post {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#content-update, textarea {
+    height: 100%;
+    width: 100%;
+}
+
+
+

@@ -7,70 +7,61 @@ class PostManager extends Manager
     public function getPosts()
     {
         $db = $this->dbConnect();
-        $posts = $db->query('SELECT idPosts, idUsers, title, wording, content, DATE_FORMAT(creation_date, \'%d/%m/%Y\') 
-        AS creationDate FROM posts ORDER BY creation_date DESC');
-        $data = [];
-        while ($data = $posts->fetch(\PDO::FETCH_ASSOC)) {
-            $data[] = new Post($data);
+        $listPosts = $db->query('SELECT idPosts, pseudo, title, wording, content, 
+        DATE_FORMAT(posts.creation_date, \'%d/%m/%Y\') AS creationDate FROM posts 
+        INNER JOIN users ON posts.idUsers = users.idUsers ORDER BY posts.creation_date DESC');
+        $listPosts = $listPosts->fetchAll();
+        $p = [];
+        foreach ($listPosts as $listPost) {
+            //rajoute dans le tableau vide la variable comment sous forme d'objet
+            $p[] = new Post($listPost);
         }
-        return $data;
+        return $p;
     }
 
-    public function getPost($postId)
+    public function getPost($idPosts)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT idPosts, idUsers, title, wording, content, 
-        DATE_FORMAT(creation_date, \'%d/%m/%Y\') 
-        AS creation_date_fr FROM posts WHERE idPosts = ?');
-        $req->execute(array($postId));
-        $posts = $req->fetch();
+        $post = $db->prepare('SELECT idPosts, pseudo, title, wording, content, 
+        DATE_FORMAT(posts.creation_date, \'%d/%m/%Y\') AS creationDate FROM posts 
+        INNER JOIN users ON posts.idUsers = users.idUsers WHERE idPosts = ?');
+        $post->execute(array($idPosts));
+        $posts = $post->fetch();
         $posts = new Post($posts);
+
         return $posts;
     }
 
-    public function addPost(Post $postData)//$title, $wording, $content
+    public function addPost($postData)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO posts(idUsers, title, wording, content, creation_date) 
         VALUES(:idUsers, :title, :wording, :content, NOW())');
-        $req->bindValue(':idUsers', $postData->getPostId(), \PDO::PARAM_INT);
+        $req->bindValue(':idUsers', $postData->getIdUsers(), \PDO::PARAM_INT);
         $req->bindValue(':title', $postData->getTitle(), \PDO::PARAM_STR);
         $req->bindValue(':wording', $postData->getWording(), \PDO::PARAM_STR);
         $req->bindValue(':content', $postData->getContent(), \PDO::PARAM_STR);
 
         $req->execute();
-        /*$req->execute(array(
-            'idUsers' => $_SESSION['idUsers'],
-            'title' => $title,
-            'wording' => $wording,
-            'content' => $content
-        ));*/
     }
 
-    public function updatePost(Post $updatePost)//$id, $title, $wording, $content
+    public function updatePost($updatePost)
     {
         $db = $this->dbConnect();
-        $req = $this->$db->prepare('UPDATE posts SET title = :title, wording = :wording, content = :content 
+        $req = $db->prepare('UPDATE posts SET title = :title, wording = :wording, content = :content 
         WHERE idPosts = :id');
-        $req->bindValue(':id', $updatePost->getPostId(), \PDO::PARAM_INT);
         $req->bindValue(':title', $updatePost->getTitle(), \PDO::PARAM_STR);
         $req->bindValue(':wording', $updatePost->getWording(), \PDO::PARAM_STR);
         $req->bindValue(':content', $updatePost->getContent(), \PDO::PARAM_STR);
+        $req->bindValue(':id', $updatePost->getIdPosts(), \PDO::PARAM_INT);
+
         $req->execute();
-        /*$req->execute([
-            'title' => $title,
-            'wording' => $wording,
-            'content' => $content,
-            'id' => $id
-        ]);*/
     }
 
-    public function deletePost($id)//$id
+    public function deletePost($deletePost)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('DELETE FROM posts WHERE idPosts = :id');
-        $req->execute([
-            'id' => $id,
-        ]);
+        $req = $db->prepare('DELETE FROM posts WHERE idPosts = ?');
+        $req->execute(array($deletePost));
     }
 }

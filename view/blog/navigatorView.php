@@ -1,7 +1,7 @@
 <!--Navigator-->
 <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="index.php">Blog Printer</a>
+        <a class="navbar-brand" href="index.php">Blog Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu
             <i class="fas fa-bars"></i>
@@ -11,11 +11,9 @@
         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" 
         href="index.php">Accueil</a></li>
         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" 
-        href="index.php?action=about">Qui je suis ?</a></li>
+        href="index.php?action=blogPost">Blog Post</a></li>
         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" 
         href="index.php?action=register">Deviens un printer !</a></li>
-        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" 
-        href="index.php?action=forms">Contactez-moi !</a></li>
         <?php if (!isset($_SESSION['pseudo'])) :?>
         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.php?action=connect">Connexion</a></li>
         <?php else : ?>

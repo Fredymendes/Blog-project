@@ -1,52 +1,38 @@
+
 <?php require('view/blog/headView.php'); ?>
-<?php require('view/blog/navigatorView.php'); ?>
 
-<!DOCTYPE html>
 <html>
-<header class="masthead" style="background-image: url('public/assets/img/home-bg.jpg')">
-    <div class="container position-relative px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="site-heading">
-                    <h1><?php if (isset($_SESSION['idUsers']) and isset($_SESSION['pseudo'])) {
-                        echo 'Bonjour ' . $_SESSION['pseudo'];
-                        }?></h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
+<!--Navigator-->
+<nav class="admin-bar">
+    <ul>
+        <li><a href="index.php">Retour à la page d'acceuil</a></li>
+    </ul>
+</nav>
 
 <body>
-    <div class="hero">
-        <aside>
-            <article>
-                <h4>Menu</h4>
-                <a href="index.php?action=article">Mes articles</a>
-                <br />
-                <a href="index.php?action=deconnexion">Me déconnectez</a>
-            </article>
-        </aside>
-    </div>
-    <div class="argument-hero">
-        <form method="POST" action="index.php?action=contentValid">
-        <label for="title">Titre :</label>
-        <br />
-        <input type="text" name="title" value="">
-        <br />
-        <label for="wording">Châpo :</label>
-        <br />
-        <input type="text" name="wording" value="">
-        <br />
-        <label for="content">Contenu :</label>
-        <br />
-        <textarea name="content" placeholder="Il était une fois..."></textarea>
-        <br />
-        <button class="btn btn-primary text-uppercase" id="submitButton" name="submit" type="submit">Printer</button>
-        <br>
-        </form>
-    </div>
+    <div class="container-fluid">
+        <h1 id="hero-admin" >Bonjour <?= $_SESSION['pseudo'] ?></h1>
+        <div class="menu-content">
+            <h4 class="menu">Menu</h4>
+            <a href="index.php?action=article">Mes articles</a>
+            <a href="index.php?action=comment">Validation des commentaires</a>
+            <a href="index.php?action=deconnexion">Déconnection</a>
+        </div>
+        <div id="post-content">
+            <h4 class="menu">Publication du post</h4>
+            <form method="POST" action="index.php?action=contentValid">
+                <label for="title">Titre :</label>
+                <input type="text" name="title" value="">
+                <label for="wording">Châpo :</label>
+                <input type="text" name="wording" value="">
+                <label for="content">Contenu :</label>
+                <div id="content">
+                <textarea id="content-post" name="content" placeholder="Il était une fois..."></textarea>    
+                </div>
+                <button class="btn btn-primary text-uppercase" id="submitButton" name="submit"
+                    type="submit">Printer</button>
+            </form>
+        </div>
 </body>
 
 </html>

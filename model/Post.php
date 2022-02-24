@@ -2,36 +2,24 @@
 
 namespace App\model;
 
-class Post
+class Post extends Entity
 {
-    private $postId;
+    private $idPosts;
+    private $idUsers;
     private $title;
     private $wording;
     private $content;
     private $creation_date;
 
-    public function __construct(array $donnees = [])
-    {
-        $this->hydrate($donnees);
-    }
-    public function hydrate(array $donnees)
-    {
-        foreach ($donnees as $key => $value) {
-            // On récupère le nom du setter correspondant à l'attribut
-            $method = 'set' . ucfirst($key);
-
-            // Si le setter correspondant existe.
-            if (method_exists($this, $method)) {
-                // On appelle le setter
-                $this->$method($value);
-            }
-        }
-    }
-    // crée un fichier entity pour l'hydratation
     //Getters
-    public function getPostId()
+    public function getIdPosts()
     {
-        return $this->postId;
+        return $this->idPosts;
+    }
+
+    public function getIdUsers()
+    {
+        return $this->idUsers;
     }
 
     public function getTitle()
@@ -55,15 +43,23 @@ class Post
     }
 
     //Setters
-    public function setPostId($postId)
+    public function setIdPosts($idPosts)
     {
-        $postId = (int) $postId;
+        $idPosts = (int) $idPosts;
 
-        if ($postId > 0) {
-            $this->postId = $postId;
+        if ($idPosts > 0) {
+            $this->idPosts = $idPosts;
         }
     }
 
+    public function setIdUsers($idUsers)
+    {
+        $idUsers = (int) $idUsers;
+
+        if ($idUsers > 0) {
+            $this->idUsers = $idUsers;
+        }
+    }
     public function setTitle($title)
     {
         if (is_string($title)) {

@@ -19,29 +19,30 @@
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <h3></h3>
                 <p><?= nl2br(htmlspecialchars($post->getContent())) ?></p>
+                <h3><?= nl2br(htmlspecialchars($post->getIdUsers())) ?></h3>
             </div>
         </div>
     </div>
 </article>
 <hr class="my-4" /> 
-<!--à faire-->
 <?php
-foreach ($comments as $comment) {
+foreach ($listComments as $listComment) {
     ?>
-    <p><strong><?= htmlspecialchars($comment->getIdUsers()) ?></strong> 
-    le <?= htmlspecialchars($comment->getCommentDate()) ?></p>
-    <p><?= nl2br(htmlspecialchars($comment->getComment())) ?></p>
+    <p><strong><?= htmlspecialchars($listComment->getPseudo()) ?></strong>
+    le <?= htmlspecialchars($listComment->getCommentDate()) ?></p>
+    <p><?= nl2br(htmlspecialchars($listComment->getComment())) ?></p>
     <hr class="my-4" /> 
     <?php
 }
 ?>
 <div class="news">
-<form method="POST" action="index.php?action=commentValid&amp;id=<?= $post->getPostId() ?>">
+<form method="POST" action="index.php?action=commentValid&amp;id=<?= $post->getIdPosts() ?>">
     <label for="comment">Message :</label><br>
     <textarea id="message" name="comment" cols="50" rows="7"></textarea><br>
     <input type="submit" class="btn btn-primary text-uppercase" name="submit" value="Envoyer le message">
 </form> 
 </div>
+
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>

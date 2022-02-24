@@ -7,7 +7,7 @@ class FormsManager extends Manager
     public function registerForm(Forms $form)
     {
         $db = $this->dbConnect();
-        $formsUsers = $db->prepare('INSERT INTO forms(lastname, firstname, 
+        $formsUsers = $db->prepare('INSERT INTO forms(lastname, firstname,
         typedemande, email, message, creation_date_form) 
         VALUES(:lastname, :firstname, :typeDemande, :email, :message, NOW())');
         $formsUsers->bindValue(':lastname', $form->getLastName(), \PDO::PARAM_STR);

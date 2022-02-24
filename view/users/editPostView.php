@@ -1,27 +1,24 @@
+
+<?php require('view/blog/headView.php'); ?>
+
 <!--Navigator-->
-<nav>
+<nav class="admin-bar">
    <ul>
     <li><a href="index.php?action=article">Retour dans votre espace article</a></li>
   </ul>
 </nav>
-<div class="argument-hero">
-        <form method="POST" action="index.php?action=updateValid&id=<?= $updatePost->getPostId() ?>">
-        <br />  
+<div class="container">
+        <form method="POST" action="index.php?action=updateValid&id=<?= $update->getIdPosts() ?>">
         <label for="title">Titre :</label>
-        <br />
-        <input type="text" name="title" value="<?= $updatePost->getTitle() ?>">
-        <br />
+        <input type="text" name="title" value="<?= htmlspecialchars($update->getTitle()) ?>">
         <label for="wording">Châpo :</label>
-        <br />
-        <input type="text" name="wording" value="<?= $updatePost->getWording() ?>">
-        <br />
+        <input type="text" name="wording" value="<?= htmlspecialchars($update->getWording()) ?>">
         <label for="content">Contenu :</label>
-        <br />
+        <div id="content-update">
         <textarea name="content" 
-        rows="5" cols="33" placeholder="Il était une fois..."><?= $updatePost->getContent() ?></textarea>
-        <br />
+        rows="5" cols="33" placeholder="Il était une fois..."><?= htmlspecialchars($update->getContent()) ?></textarea>  
+        </div>
         <button class="btn btn-primary text-uppercase" id="submitButton"
         name="submit" type="submit">Mise à jour du post</button>
-        <br>
         </form>
 </div>
