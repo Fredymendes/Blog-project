@@ -35,13 +35,18 @@ foreach ($listComments as $listComment) {
     <?php
 }
 ?>
-<div class="news">
-<form method="POST" action="index.php?action=commentValid&amp;id=<?= $post->getIdPosts() ?>">
-    <label for="comment">Message :</label><br>
-    <textarea id="message" name="comment" cols="50" rows="7"></textarea><br>
-    <input type="submit" class="btn btn-primary text-uppercase" name="submit" value="Envoyer le message">
-</form> 
+
+<?php if (!isset($_SESSION['role'])) :?>
+<div id="warning-conn">
+    <h4>Veuillez vous connectez afin d'envoyez un message</h4>
 </div>
+<?php else :?>
+<form id="postmessage" method="POST" action="index.php?action=commentValid&amp;id=<?= $post->getIdPosts() ?>">
+    <label for="comment">Message :</label>
+    <textarea id="messagepost" name="comment" style="resize: none;"></textarea>
+    <input type="submit" class="btn btn-primary text-uppercase" name="submit" value="Envoyer le message">   
+</form> 
+<?php endif; ?>
 
 <?php $content = ob_get_clean(); ?>
 

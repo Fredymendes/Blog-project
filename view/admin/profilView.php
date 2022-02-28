@@ -20,17 +20,16 @@
         </div>
         <div id="post-content">
             <h4 class="menu">Publication du post</h4>
-            <form method="POST" action="index.php?action=contentValid">
+            <form class="content-hero" method="POST" action="index.php?action=contentValid">
                 <label for="title">Titre :</label>
-                <input type="text" name="title" value="">
+                <input class="content-post" type="text" name="title" value="">
                 <label for="wording">Châpo :</label>
-                <input type="text" name="wording" value="">
+                <input class="content-post" type="text" name="wording" value="">
                 <label for="content">Contenu :</label>
-                <div id="content">
-                <textarea id="content-post" name="content" placeholder="Il était une fois..."></textarea>    
-                </div>
-                <button class="btn btn-primary text-uppercase" id="submitButton" name="submit"
-                    type="submit">Printer</button>
+                <textarea id="post" name="content" style="resize: none;" 
+                placeholder="Il était une fois..."></textarea>    
+                <button class="btn btn-primary text-uppercase" 
+                id="submitButton" name="submit" type="submit">Printer</button>
             </form>
         </div>
 </body>
