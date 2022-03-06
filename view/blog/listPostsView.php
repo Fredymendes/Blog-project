@@ -21,13 +21,12 @@ foreach ($listPosts as $listPost) {
             <!-- Post preview-->
             <div class="post-preview">
                 <a href="index.php?action=post&amp;id=<?= $listPost->getIdPosts() ?>">
-                <h2 class="post-title"><?= htmlspecialchars($listPost->getTitle()) ?>
-                <em> le <?= htmlspecialchars($listPost->getCreationDate()) ?></em></h2>
-                <h3 class="post-subtitle"><?= nl2br(htmlspecialchars($listPost->getWording()))?></h3>
+                <h3 class="post-title"><?= htmlspecialchars($listPost->getTitle()) ?>
+                <em> le <?= htmlspecialchars($listPost->getCreationDate()) ?></em></h3>
+                <h3 class="post-subtitle"><?= nl2br(htmlspecialchars($listPost->getWording()))?> 
+                par <?= htmlspecialchars($listPost->getPseudo()) ?></h3>
                 </a>
-                <h2><?= htmlspecialchars($listPost->getIdUsers()) ?></em></h2>
                 <p class="post-meta"><?= substr(nl2br(htmlspecialchars($listPost->getContent())), 0, 300) . '...'?></p>
-                <p><?= htmlspecialchars($listPost->getIdUsers()) ?></p>
             </div>
         </div>
     </div>

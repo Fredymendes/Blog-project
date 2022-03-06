@@ -44,16 +44,18 @@ class FrontendController
             return;
         }
 
-        if (!isset($_SESSION['idUsers'])) {
-            echo 'Vous devez être authentifié pour soumettre un commentaire.';
-            return;
-        } else {
+        if (isset($_SESSION['idUsers'])) {
             $postComment = new Comment([
                 'idUsers' => $_SESSION['idUsers'],
                 'idPosts' => $idPosts,
                 'comment' => $_POST['comment']]);
             $comment = $commentManager->addComment($postComment);
             header('Location: index.php?action=post&id=' . $idPosts);
+            $_SESSION['message'] = '<script>alert(\'Votre message sera publier dans quelque instant !\')</script>';
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
         }
     }
 

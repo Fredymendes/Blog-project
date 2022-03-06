@@ -26,7 +26,7 @@ class CommentManager extends Manager
         $db = $this->dbConnect();
         $comment = $db->prepare('SELECT *, DATE_FORMAT(comment_date, \'%d/%m/%Y\') 
         AS commentDate FROM comments INNER JOIN users 
-        ON users.idUsers = comments.idUsers 
+        ON users.idUsers = comments.idUsers INNER JOIN posts ON posts.idPosts = comments.idPosts 
         WHERE validate = 0 ORDER BY comment_date ASC');
         $comment->execute(array());
         $c = [];

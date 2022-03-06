@@ -8,7 +8,7 @@
                 <div class="page-heading">
                     <img class="hero" src="public/assets/img/hero.jpg" alt="Fredy Mendes">
                     <h1>Fredy Mendes</h1>
-                    <span class="subheading">le développeur qu’il vous faut !</span>
+                    <span class="subheading">Le développeur qu’il vous faut !</span>
 
                 </div>
             </div>
@@ -21,7 +21,7 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
-                <h1>Qui je suis ?</h1>
+                <h2>Qui je suis ?</h2>
                 <span class="subheading">Mon parcours professionnel</span>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur
                     voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam
@@ -36,12 +36,12 @@
             </div>
         </div>
     </div>
-    <hr class="my-4" />
+    <hr class="my-5" />
 
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
-                <p>Conversons un peu !</p>
+                <h2>Conversons un peu !</h2>
                 <form id="contactForm" method="POST" action="index.php?action=formValid">
                     <div class="form-floating">
                         <input class="form-control" type="text" name="lastname" placeholder="Votre nom">
@@ -57,13 +57,13 @@
                     </div>
                     <br />
                     <div class="form-floating">
-                        <label for="typeDemande">Type de demande :</label>
-                        <select id="select" name="typeDemande">
+                        <p for="object">Type de demande :</p>
+                        <select id="select" name="object">
                             <option value="">--Quel est la raisons de votre demande ?--</option>
                             <option value="job">Job</option>
                             <option value="question">Question</option>
                             <option value="autres">Autres</option>
-                        </select>
+                        </select> 
                     </div>
                     <div class="form-floating">
                         <textarea class="form-control" id="message" name="message"
@@ -72,8 +72,9 @@
                         <label for="message">Message :</label>
                     </div>
                     <br>
-                    <button class="btn btn-primary text-uppercase" id="submitButton" name="submit"
-                        type="submit">Printer</button>
+                    <!-- Submit Button-->
+                    <button class="btn btn-primary text-uppercase" id="submitButton" 
+                    name="submit" type="submit">Printer</button>
             </div>
             </form>
         </div>

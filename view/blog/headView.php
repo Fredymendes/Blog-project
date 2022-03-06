@@ -15,4 +15,8 @@
         rel="stylesheet" type="text/css" />
     <link href="public/css/style.css?1" rel="stylesheet" />
     <link href="public/css/blog.css?2" rel="stylesheet" />
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="public/js/scripts.js"></script>
 </head>

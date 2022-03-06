@@ -7,7 +7,7 @@ class Forms extends Entity
     private $idForms;
     private $lastname;
     private $firstname;
-    private $typeDemande;
+    private $object;
     private $email;
     private $message;
     private $creation_date_form;
@@ -27,9 +27,9 @@ class Forms extends Entity
         return $this->firstname;
     }
 
-    public function getTypeDemande()
+    public function getObject()
     {
-        return $this->typeDemande;
+        return $this->object;
     }
 
     public function getEmail()
@@ -70,10 +70,10 @@ class Forms extends Entity
         }
     }
 
-    public function setTypeDemande($typeDemande)
+    public function setObject($object)
     {
-        if (is_string($typeDemande)) {
-            $this->typeDemande = $typeDemande;
+        if (is_string($object)) {
+            $this->object = $object;
         }
     }
 

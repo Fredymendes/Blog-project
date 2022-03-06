@@ -61,7 +61,7 @@ if (isset($_GET['action'])) {
         $backend->addForm(
             $_POST['lastname'],
             $_POST['firstname'],
-            $_POST['typeDemande'],
+            $_POST['object'],
             $_POST['email'],
             $_POST['message']
         );

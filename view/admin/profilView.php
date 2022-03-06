@@ -5,18 +5,22 @@
 <!--Navigator-->
 <nav class="admin-bar">
     <ul>
-        <li><a href="index.php">Retour à la page d'acceuil</a></li>
+        <li><a href="index.php">Retour à la page d'accueil</a></li>
     </ul>
 </nav>
 
 <body>
     <div class="container-fluid">
+        <?php if (!isset($_SESSION['pseudo'])) :?>
+            <?= header("location : index.php"); ?>
+        <?php else :?>
         <h1 id="hero-admin" >Bonjour <?= $_SESSION['pseudo'] ?></h1>
+        <?php endif; ?>
         <div class="menu-content">
             <h4 class="menu">Menu</h4>
             <a href="index.php?action=article">Mes articles</a>
             <a href="index.php?action=comment">Validation des commentaires</a>
-            <a href="index.php?action=deconnexion">Déconnection</a>
+            <a href="index.php?action=deconnexion">Déconnexion</a>
         </div>
         <div id="post-content">
             <h4 class="menu">Publication du post</h4>

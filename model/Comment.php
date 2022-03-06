@@ -9,6 +9,7 @@ class Comment extends Entity
     private $pseudo;
     private $idPosts;
     private $comment;
+    private $wording;
     private $comment_date;
 
     //Getters
@@ -35,6 +36,11 @@ class Comment extends Entity
     public function getComment()
     {
         return $this->comment;
+    }
+
+    public function getWording()
+    {
+        return $this->wording;
     }
 
     public function getCommentDate()
@@ -81,6 +87,13 @@ class Comment extends Entity
     {
         if (is_string($comment)) {
             $this->comment = $comment;
+        }
+    }
+
+    public function setWording($wording)
+    {
+        if (is_string($wording)) {
+            $this->wording = $wording;
         }
     }
 

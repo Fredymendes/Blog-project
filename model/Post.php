@@ -6,6 +6,7 @@ class Post extends Entity
 {
     private $idPosts;
     private $idUsers;
+    private $pseudo;
     private $title;
     private $wording;
     private $content;
@@ -21,6 +22,12 @@ class Post extends Entity
     {
         return $this->idUsers;
     }
+
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
+
 
     public function getTitle()
     {
@@ -60,6 +67,14 @@ class Post extends Entity
             $this->idUsers = $idUsers;
         }
     }
+
+    public function setPseudo($pseudo)
+    {
+        if (is_string($pseudo)) {
+            $this->pseudo = $pseudo;
+        }
+    }
+
     public function setTitle($title)
     {
         if (is_string($title)) {

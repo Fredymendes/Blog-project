@@ -19,7 +19,7 @@
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <h3></h3>
                 <p><?= nl2br(htmlspecialchars($post->getContent())) ?></p>
-                <h3><?= nl2br(htmlspecialchars($post->getIdUsers())) ?></h3>
+                <h3><?= htmlspecialchars($post->getPseudo()) ?></h3>
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@ foreach ($listComments as $listComment) {
 
 <?php if (!isset($_SESSION['role'])) :?>
 <div id="warning-conn">
-    <h4>Veuillez vous connectez afin d'envoyez un message</h4>
+    <p id="warn-message">Veuillez vous connectez afin d'envoyez un message</p>
 </div>
 <?php else :?>
 <form id="postmessage" method="POST" action="index.php?action=commentValid&amp;id=<?= $post->getIdPosts() ?>">

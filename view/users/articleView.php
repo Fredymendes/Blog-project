@@ -30,11 +30,11 @@
                     <td><?= htmlspecialchars($post->getTitle()) ?></td>
                     <td><?= htmlspecialchars($post->getWording()) ?></td>
                     <td><?= substr(nl2br(htmlspecialchars($post->getContent())), 0, 50) . '...' ?></td>
-                    <td><button type="button" class="btn btn-primary">
-                        <a href="index.php?action=updateId&id=<?= $post->getIdPosts() ?>">Modifier</a></button>
+                    <td><a class="btn btn-primary" 
+                    href="index.php?action=updateId&id=<?= $post->getIdPosts() ?>">Modifier</a>
                     </td>
-                    <td><button type="button" class="btn btn-danger">
-                        <a href="index.php?action=deleteId&id=<?= $post->getIdPosts() ?>">Supprimer</a></button>
+                    <td><a class="btn btn-danger" 
+                    href="index.php?action=deleteId&id=<?= $post->getIdPosts() ?>">Supprimer</a>
                     </td>
                     </th>
                 </tr>

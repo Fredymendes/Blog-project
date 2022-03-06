@@ -7,9 +7,9 @@ class PostManager extends Manager
     public function getPosts()
     {
         $db = $this->dbConnect();
-        $listPosts = $db->query('SELECT idPosts, pseudo, title, wording, content, 
+        $listPosts = $db->query('SELECT *, 
         DATE_FORMAT(posts.creation_date, \'%d/%m/%Y\') AS creationDate FROM posts 
-        INNER JOIN users ON posts.idUsers = users.idUsers ORDER BY posts.creation_date DESC');
+        INNER JOIN users ON users.idUsers = posts.idUsers ORDER BY posts.creation_date DESC');
         $listPosts = $listPosts->fetchAll();
         $p = [];
         foreach ($listPosts as $listPost) {
@@ -22,9 +22,9 @@ class PostManager extends Manager
     public function getPost($idPosts)
     {
         $db = $this->dbConnect();
-        $post = $db->prepare('SELECT idPosts, pseudo, title, wording, content, 
+        $post = $db->prepare('SELECT *, 
         DATE_FORMAT(posts.creation_date, \'%d/%m/%Y\') AS creationDate FROM posts 
-        INNER JOIN users ON posts.idUsers = users.idUsers WHERE idPosts = ?');
+        INNER JOIN users ON users.idUsers = posts.idUsers WHERE idPosts = ?');
         $post->execute(array($idPosts));
         $posts = $post->fetch();
         $posts = new Post($posts);

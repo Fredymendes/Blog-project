@@ -18,6 +18,7 @@
                     <th>#</th>
                     <th>Pseudo</th>
                     <th>Commentaire</th>
+                    <th>Article</th>
                     <th>Date du commentaire</th>
                     <th>Validation</th>
                     <th>Supprimer</th>
@@ -29,13 +30,12 @@
                     <th scope="row"></th>
                     <td><?= nl2br(htmlspecialchars($comment->getPseudo())) ?></td>
                     <td><?= substr(nl2br(htmlspecialchars($comment->getComment())), 0, 150) . '...' ?></td>
+                    <td><?= nl2br(htmlspecialchars($comment->getWording())) ?></td>
                     <td><?= htmlspecialchars($comment->getCommentDate()) ?></td>
-                    <td><button type="button" class="btn btn-primary">
-                        <a href="index.php?action=updateComment&id=<?= $comment->getIdComments() ?>">
-                        Validation</a></button></td>
-                    <td><button type="button" class="btn btn-danger">
-                        <a href="index.php?action=deleteComment&id=<?= $comment->getIdComments() ?>">
-                        Supprimer</a></button></td>
+                    <td><a class="btn btn-primary" 
+                    href="index.php?action=updateComment&id=<?= $comment->getIdComments() ?>">Validation</a></td>
+                    <td><a class="btn btn-danger" 
+                    href="index.php?action=deleteComment&id=<?= $comment->getIdComments() ?>">Supprimer</a></td>
                 </tr>
             <?php } ?>
             </tbody>

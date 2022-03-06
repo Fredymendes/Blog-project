@@ -43,16 +43,24 @@ class BackendController
         require('view/users/deletePostView.php');
     }
 
-    public function deletePost($deletePost)
+    public function deletePost()
     {
         $postManager = new PostManager();
         if (!isset($_GET['id'])) {
-            echo "Oups le post est absent...";
+            $_SESSION['message'] = '<script>alert(\'Le post est absent...\')</script>';
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
             return;
         } else {
             $postManager->deletePost($_GET['id']);
             header("Location: index.php?action=article");
-            echo 'Suppression éffectué';
+            $_SESSION['message'] = '<script>alert(\'Le post est supprimé...\')</script>';
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
         }
     }
 
@@ -74,8 +82,11 @@ class BackendController
     {
         $postManager = new PostManager();
         if (!isset($_POST['title']) or !isset($_POST['wording']) or !isset($_POST['content'])) {
-            echo "Oups le post n'est pas passée...";
-            return;
+            $_SESSION['message'] = '<script>alert(\'Ooops le post n\'est pas passé...\')</script>';
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
         } else {
             $updatePost = new Post([
                 'title' => $_POST['title'],
@@ -98,7 +109,11 @@ class BackendController
                 empty($_POST['lastname']) or empty($_POST['firstname']) or empty($_POST['pseudo'])
                 or empty($_POST['email']) or empty($_POST['password'])
             ) {
-                $_SESSION['message'] = "Vous n'avez pas remplit tous les champs...";
+                $_SESSION['message'] = '<script>alert(\'Veuillez remplir tous les champs...\')</script>';
+                if (isset($_SESSION['message'])) {
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                }
             } else {
                 $users = new Users([
                 'lastname' => $_POST['lastname'],
@@ -108,7 +123,11 @@ class BackendController
                 'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
                 ]);
                 $usersManager->register($users);
-                echo "Inscription réussi !";
+                $_SESSION['message'] = '<script>alert(\'Inscription réussi !\')</script>';
+                if (isset($_SESSION['message'])) {
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                }
             }
         }
         require('view/admin/registerView.php');
@@ -122,7 +141,11 @@ class BackendController
             $isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
 
             if (!$isPasswordCorrect) {
-                echo 'Mauvais identifiant ou mot de passe !';
+                $_SESSION['message'] = '<script>alert(\'Mauvais mot de passe, veuillez recommencez\')</script>';
+                if (isset($_SESSION['message'])) {
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                }
             } else {
                 $_SESSION['idUsers'] = $resultat['idUsers'];
                 $_SESSION['pseudo'] = $pseudo;
@@ -143,8 +166,12 @@ class BackendController
 
         if (isset($_POST['submit'])) {
             if (empty($_POST['title']) or empty($_POST['wording']) or empty($_POST['content'])) {
-                echo "Oups le post n'est pas passée...";
-            } elseif ($_SESSION['idUsers'] == 1) {
+                $_SESSION['message'] = '<script>alert(\'Ooops le post n\'est pas passé...\')</script>';
+                if (isset($_SESSION['message'])) {
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                }
+            } elseif (isset($_SESSION['idUsers'])) {
                 $postData = new Post([
                     'idUsers' => $_SESSION['idUsers'],
                     'title' => $_POST['title'],
@@ -152,10 +179,12 @@ class BackendController
                     'content' => $_POST['content']
                 ]);
                 $post = $contentPost->addPost($postData);
+                }
                 header("Location: index.php");
-                echo 'Post envoyé';
-            } else {
-                header('Location: index.php');
+                $_SESSION['message'] = '<script>alert(\'Post envoyé!\')</script>';
+                if (isset($_SESSION['message'])) {
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
             }
         }
         require('view/admin/profilView.php');
@@ -166,22 +195,25 @@ class BackendController
         $contactForm = new FormsManager();
 
         if (isset($_POST['submit'])) {
-            if (
-                empty($_POST['lastname']) or empty($_POST['firstname'])
-                or empty($_POST['typeDemande']) or empty($_POST['email']) or empty($_POST['message'])
-            ) {
-                echo "Veuillez remplir tous les champs...";
+            if (empty($_POST['lastname']) or empty($_POST['firstname'])
+                or empty($_POST['object']) or empty($_POST['email'])
+                or empty($_POST['message'])) {
+                $_SESSION['message'] = '<script>alert(\'Veuillez remplir tous les champs...\')</script>';
+                if (isset($_SESSION['message'])) {
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                }
             } else {
                 $form = new Forms([
                     'lastname' => $_POST['lastname'],
                     'firstname' => $_POST['firstname'],
-                    'typeDemande' => $_POST['typeDemande'],
+                    'object' => $_POST['object'],
                     'email' => $_POST['email'],
                     'message' => $_POST['message']
                 ]);
                 $contactForm->registerForm($form);
                 $to = $form->getEmail();
-                $subject = $form->getTypeDemande();
+                $subject = $form->getObject();
                 $message = $form->getMessage();
                 $headers = array(
                 'From' => 'fredymendes6@gmail.com',
@@ -189,8 +221,14 @@ class BackendController
                 'X-Mailer' => 'PHP/' . phpversion()
                 );
                 mail($to, $subject, $message, $headers);
+                $_SESSION['message'] = '<script>alert(\'Merçi pour votre message et à bientôt\')</script>';
+                if (isset($_SESSION['message'])) {
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                }
             }
         }
         require('view/blog/aboutView.php');
     }
 }
+

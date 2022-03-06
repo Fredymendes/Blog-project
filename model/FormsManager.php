@@ -8,11 +8,11 @@ class FormsManager extends Manager
     {
         $db = $this->dbConnect();
         $formsUsers = $db->prepare('INSERT INTO forms(lastname, firstname,
-        typedemande, email, message, creation_date_form) 
-        VALUES(:lastname, :firstname, :typeDemande, :email, :message, NOW())');
+        object, email, message, creation_date_form) 
+        VALUES(:lastname, :firstname, :object, :email, :message, NOW())');
         $formsUsers->bindValue(':lastname', $form->getLastName(), \PDO::PARAM_STR);
         $formsUsers->bindValue(':firstname', $form->getFirstName(), \PDO::PARAM_STR);
-        $formsUsers->bindValue(':typeDemande', $form->getTypeDemande(), \PDO::PARAM_STR);
+        $formsUsers->bindValue(':object', $form->getObject(), \PDO::PARAM_STR);
         $formsUsers->bindValue(':email', $form->getEmail(), \PDO::PARAM_STR);
         $formsUsers->bindValue(':message', $form->getMessage(), \PDO::PARAM_STR);
 

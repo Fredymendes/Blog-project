@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 /*****************Photo home*******************/
 .hero {
     border-radius: 50%;
@@ -5,7 +10,8 @@
 }
 
 /*****************Navbar User*******************/
-ul, li {
+ul,
+li {
     list-style: none;
 }
 
@@ -13,15 +19,21 @@ ul, li {
     padding-top: 15px;
     padding-bottom: 10px;
     margin-bottom: 40px;
-    box-shadow: 0 2px 2px 2px rgba(0,0,0,.2);
+    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, .2);
 }
 
 #hero-admin {
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 /*****************Post Content*******************/
+h2 {
+    text-decoration: underline;
+}
+
 .menu {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -31,49 +43,69 @@ ul, li {
 .menu-content {
     display: flex;
     float: left;
-    /*box-shadow: 10px 5px 5px black;*/
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+    padding-right: 15px;
     flex-direction: column;
     height: 100%;
-    padding: 10px 10px 10px 10px;
-    border: 1px solid black;
+    margin-right: 20px;
 }
 
 #post-content {
     padding: 10px 10px 10px 10px;
     height: 100%;
-    /*border: 1px solid black;*/
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px,
+        rgba(0, 0, 0, 0.07) 0px 2px 4px,
+        rgba(0, 0, 0, 0.07) 0px 4px 8px,
+        rgba(0, 0, 0, 0.07) 0px 8px 16px,
+        rgba(0, 0, 0, 0.07) 0px 16px 32px, 
+        rgba(0, 0, 0, 0.07) 0px 32px 64px;
 }
 
-#post-content, .content-hero {
+#post-content,
+.content-hero {
     display: flex;
     margin: 0 auto;
     flex-direction: column;
 }
 
-.content-hero, .content-post {
+.content-hero,
+.content-post {
     width: 100%;
 }
 
-.content-hero, #post {
-   height: 100%;
-   margin-bottom: 25px; 
+.content-hero,
+#post {
+    height: 100%;
+    margin-bottom: 25px;
 }
 
 /*****************Post Message*******************/
 #warning-conn {
-    background-color: orange;
+    display: flex;
+    background-color: rgb(240, 230, 140);
+    height: 200px;
+    width: 500px;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    border-radius: 30px;
+}
+
+#warning-conn, #warn-message {
+    display: flex;
+    text-align: center;
+    padding: 10px 10px 10px 10px;
 }
 
 #postmessage {
     display: flex;
     flex-direction: column;
     width: 50%;
+    margin-left: 30px;
 }
 
-#postmessage, #messagepost {
+#postmessage,
+#messagepost {
     height: 50%;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;  
 }
-
-
