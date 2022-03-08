@@ -1,14 +1,18 @@
+
+<?php require 'view/blog/headView.php'; ?>
+
+<!DOCTYPE html>
 <!--Navigator-->
-<nav>
+<nav class="admin-bar">
     <ul>
         <li><a href="index.php?action=article">Revenir sur l'espace article</a></li>
     </ul>
 </nav>
-<div class="argument-hero">
-        <form method="POST" action="index.php?action=deleteValid&id=<?= $id ?>">
-        <input type="hidden" id="id" name="id" value="<?php echo $_GET['id']?>">
-        <button class="btn btn-primary text-uppercase" id="submitButton"
-        name="submit" type="submit">Voulez-vous supprimez cette article ?</button>
+<div class="container">
+        <form method="POST" action="index.php?action=deleteValid&id=<?php echo $delete->getIdPosts() ?>">
+        <h3>êtes-vous sur de vouloir supprimer le post ?</h3>
+        <button class="btn btn-primary text-uppercase" id="submitButton" 
+        name="submit" type="submit">Supprimmer</button>
         <br>
         </form>
 </div>

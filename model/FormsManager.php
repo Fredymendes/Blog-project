@@ -1,20 +1,23 @@
 <?php
-require_once("model/Manager.php");
 
-class FormManager extends Manager
+namespace App\model;
+
+class FormsManager extends Manager
 {
-    function registerForm($lastname, $firstname, $typeDemande, $email, $message)
+    public function registerForm(Forms $form)
     {
         $db = $this->dbConnect();
-        $formsUsers = $db->prepare('INSERT INTO forms(lastname, firstname, 
-        typedemande, email, message, creation_date_form) 
-        VALUES(:lastname, :firstname, :typeDemande, :email, :message, NOW())');
-        $formsUsers->execute(array(
-            'lastname' => $lastname,
-            'firstname' => $firstname,
-            'typeDemande' => $typeDemande,
-            'email' => $email,
-            'message' => $message
-        ));
+        $formsUsers = $db->prepare(
+            'INSERT INTO forms(lastname, firstname,
+        object, email, message, creation_date_form) 
+        VALUES(:lastname, :firstname, :object, :email, :message, NOW())'
+        );
+        $formsUsers->bindValue(':lastname', $form->getLastName(), \PDO::PARAM_STR);
+        $formsUsers->bindValue(':firstname', $form->getFirstName(), \PDO::PARAM_STR);
+        $formsUsers->bindValue(':object', $form->getObject(), \PDO::PARAM_STR);
+        $formsUsers->bindValue(':email', $form->getEmail(), \PDO::PARAM_STR);
+        $formsUsers->bindValue(':message', $form->getMessage(), \PDO::PARAM_STR);
+
+        $formsUsers->execute();
     }
-} 
+}

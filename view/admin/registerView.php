@@ -1,5 +1,5 @@
-<?php require('view/blog/headView.php'); ?>
-<?php require('view/blog/navigatorView.php'); ?>
+<?php require 'view/blog/headView.php'; ?>
+<?php require 'view/blog/navigatorView.php'; ?>
 
 <header class="masthead" style="background-image: url('public/assets/img/post-sample-image.jpg')">
     <div class="container position-relative px-4 px-lg-5">
@@ -14,11 +14,12 @@
     </div>
 </header>
 
+<!-- Main Content-->
 <main class="mb-4">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
-                <p>Mais enregistrez-vous ! bons sens !</p>
+                <h2>Mais enregistrez-vous ! bons sens !</h2>
                 <div class="my-5">
                     <form id="contactForm" method="POST" action="index.php?action=registerValid">
                         <div class="form-floating">
