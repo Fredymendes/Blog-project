@@ -40,6 +40,10 @@ class BackendController
     {
         $postManager = new PostManager();
         $delete = $postManager->getPost($deletePost);
+        if ($deletePost === false) {
+            $_SESSION['warning_message'] = 'L\'article que voulez supprimer n\'existe pas !';
+            header('Location: index.php?action=article');
+        }
         include 'view/users/deletePostView.php';
     }
 
@@ -47,11 +51,12 @@ class BackendController
     {
         $postManager = new PostManager();
         if (!isset($_GET['id'])) {
-            $_SESSION['message'] = 'Le post est absent...';
+            $_SESSION['warning_message'] = 'Le post est absent...';
         } else {
+            $_SESSION['warning_message'] = 'Le post est supprimé...';
             $postManager->deletePost($_GET['id']);
             header("Location: index.php?action=article");
-            $_SESSION['message'] = 'Le post est supprimé...';
+            exit;
         }
     }
 
@@ -59,6 +64,10 @@ class BackendController
     {
         $postManager = new PostManager();
         $posts = $postManager->getPosts();
+        if ($posts === false) {
+            $_SESSION['warning_message'] = 'il n\'y a aucun article';
+            header('Location: index.php?action=article');
+        }
         include 'view/users/articleView.php';
     }
 
@@ -66,6 +75,15 @@ class BackendController
     {
         $postManager = new PostManager();
         $update = $postManager->getPost($updatePost);
+        if ($update === false) {
+            $_SESSION['warning_message'] = 'Cette article n\'existe pas !';
+            header('Location: index.php?action=article');
+            exit;
+        } elseif (isset($_SESSION['role']) == 0) {
+            $_SESSION['warning_message'] = 'Mais! vous n\'êtes pas autorisez d\'etre ici !!!';
+            header("Location: index.php");
+            exit;
+        }
         include 'view/users/editPostView.php';
     }
 
@@ -73,7 +91,9 @@ class BackendController
     {
         $postManager = new PostManager();
         if (!isset($_POST['title']) or !isset($_POST['wording']) or !isset($_POST['content'])) {
-            $_SESSION['message'] = 'Merci de remplir tous les champs !';
+            $_SESSION['warning_message'] = 'Il semble que le post est un problème';
+            header("Location: index.php?action=article");
+            exit;
         } else {
             $updatePost = new Post(
                 [
@@ -83,22 +103,22 @@ class BackendController
                 'idPosts' => $_GET['id']
                 ]
             );
-            $_SESSION['message'] = 'Merci de remplir tous les champs !';
+            $_SESSION['message'] = 'Le post à été mise à jour !';
             $update = $postManager->updatePost($updatePost);
             header("Location: index.php?action=article");
+            exit;
         }
     }
 
     public function addRegister($users)
     {
         $usersManager = new UsersManager();
-
         if (isset($_POST['submit'])) {
             if (
                 empty($_POST['lastname']) or empty($_POST['firstname']) or empty($_POST['pseudo'])
                 or empty($_POST['email']) or empty($_POST['password'])
             ) {
-                $_SESSION['message'] = 'Veuillez remplir tous les champs...';
+                $_SESSION['warning_message'] = 'Veuillez remplir tous les champs...';
             } else {
                 $users = new Users(
                     [
@@ -109,8 +129,8 @@ class BackendController
                     'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
                     ]
                 );
-                $usersManager->register($users);
                 $_SESSION['message'] = 'Inscription réussi !';
+                $usersManager->register($users);
             }
         }
         include 'view/admin/registerView.php';
@@ -118,21 +138,26 @@ class BackendController
 
     public function addConnect($pseudo)
     {
+        $usersManager = new UsersManager();
         if (isset($_POST['submit'])) {
-            $usersManager = new UsersManager();
             $resultat = $usersManager->connected($pseudo);
             $isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
 
             if (!$isPasswordCorrect) {
-                $_SESSION['message'] = 'Mauvais mot de passe, veuillez recommencez';
+                $_SESSION['warning_message'] = 'Mauvais mot de passe, veuillez recommencez';
+                header("Location: index.php?action=connect");
             } else {
                 $_SESSION['idUsers'] = $resultat['idUsers'];
                 $_SESSION['pseudo'] = $pseudo;
                 $_SESSION['role'] = $resultat['role'];
                 if ($resultat['role'] == 1) {
+                    $_SESSION['message'] = 'Bienvenue Patron !';
                     header("Location: index.php?action=profil");
+                    exit;
                 } else {
+                    $_SESSION['message'] = 'Bienvenue Printer !';
                     header("Location: index.php");
+                    exit;
                 }
             }
         }
@@ -142,38 +167,40 @@ class BackendController
     public function addContent($postData)
     {
         $contentPost = new PostManager();
-
         if (isset($_POST['submit'])) {
             if (empty($_POST['title']) or empty($_POST['wording']) or empty($_POST['content'])) {
-                $_SESSION['message'] = 'Ooops le post n\'est pas passé...';
+                    $_SESSION['warning_message'] = 'Ooops le post n\'est pas passé...';
+                    header("Location: index.php?action=profil");
             } elseif (isset($_SESSION['idUsers'])) {
-                $postData = new Post(
-                    [
-                    'idUsers' => $_SESSION['idUsers'],
-                    'title' => $_POST['title'],
-                    'wording' => $_POST['wording'],
-                    'content' => $_POST['content']
-                    ]
-                );
-                $post = $contentPost->addPost($postData);
-                $_SESSION['message'] = 'Post envoyé!';
+                    $postData = new Post(
+                        [
+                        'idUsers' => $_SESSION['idUsers'],
+                        'title' => $_POST['title'],
+                        'wording' => $_POST['wording'],
+                        'content' => $_POST['content']
+                        ]
+                    );
+                    $post = $contentPost->addPost($postData);
             }
-                header("Location: index.php");
+                $_SESSION['message'] = 'Post envoyé!';
+                header("Location: index.php?action=profil");
+        } else {
+                include 'view/admin/profilView.php';
         }
-        include 'view/admin/profilView.php';
     }
+
 
     public function addForm($form)
     {
         $contactForm = new FormsManager();
-
         if (isset($_POST['submit'])) {
             if (
                 empty($_POST['lastname']) or empty($_POST['firstname'])
                 or empty($_POST['object']) or empty($_POST['email'])
                 or empty($_POST['message'])
             ) {
-                $_SESSION['message'] = 'Veuillez remplir tous les champs...';
+                $_SESSION['warning_message'] = 'Veuillez remplir tous les champs...';
+                header("Location: index.php");
             } else {
                 $form = new Forms(
                     [
@@ -193,10 +220,11 @@ class BackendController
                 'Reply-To' => 'fredymendes6@gmail.com',
                 'X-Mailer' => 'PHP/' . phpversion()
                 );
-                mail($to, $subject, $message, $headers);
                 $_SESSION['message'] = 'Merçi pour votre message et à bientôt';
+                mail($to, $subject, $message, $headers);
             }
+        } else {
+            include 'view/blog/aboutView.php';
         }
-        include 'view/blog/aboutView.php';
     }
 }

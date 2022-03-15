@@ -43,7 +43,7 @@ if (isset($_GET['action'])) {
     } elseif ($_GET['action'] == 'commentValid') {
         $frontend->postComment($_GET['id'], $_POST['comment']);
     } elseif ($_GET['action'] == 'updateComment') {
-        $frontend->updateComment($_GET['id'], $_POST['comment']);
+        $frontend->validateComment($_GET['id'], $_POST['comment']);
     } elseif ($_GET['action'] == 'deleteComment') {
         $frontend->deleteComment($_GET['id']);
     } elseif ($_GET['action'] == 'registerValid') {
@@ -75,3 +75,4 @@ if (isset($_GET['action'])) {
 } else {
     $backend->showAbout();
 }
+//phpinfo();

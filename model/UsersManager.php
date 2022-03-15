@@ -17,7 +17,9 @@ class UsersManager extends Manager
         $registerUsers->bindValue(':pseudo', $users->getPseudo(), \PDO::PARAM_STR);
         $registerUsers->bindValue(':email', $users->getEmail(), \PDO::PARAM_STR);
         $registerUsers->bindValue(':password', $users->getPassword(), \PDO::PARAM_STR);
-
+        if ($users == false) {
+            return false;
+        }
         $registerUsers->execute();
     }
 
@@ -30,6 +32,7 @@ class UsersManager extends Manager
             'pseudo' => $pseudo
             )
         );
+
         return $connected->fetch();
     }
 }

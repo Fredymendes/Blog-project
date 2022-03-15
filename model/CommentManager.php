@@ -15,9 +15,12 @@ class CommentManager extends Manager
         );
         $listComments->execute(array($id));
         $listComments = $listComments->fetchAll();
+        if ($listComments === false) {
+            return false;
+        }
         $c = [];
         foreach ($listComments as $listComment) {
-            //rajoute dans le tableau vide la variable comment sous forme d'objet
+        //rajoute dans le tableau vide la variable comment sous forme d'objet
             $c[] = new Comment($listComment);
         }
         return $c;
@@ -33,6 +36,9 @@ class CommentManager extends Manager
         WHERE validate = 0 ORDER BY comment_date ASC'
         );
         $comment->execute(array());
+        if ($comment == false) {
+            return false;
+        }
         $c = [];
         foreach ($comment as $listComment) {
             //rajoute dans le tableau vide la variable comment sous forme d'objet
@@ -46,7 +52,9 @@ class CommentManager extends Manager
     {
         $db = $this->dbConnect();
         $validateComments = $db->prepare('UPDATE comments SET validate = 1 WHERE idComments = ?');
-
+        if ($validateComments == false) {
+            return false;
+        }
         $validateComments->execute(array($comment));
     }
 
@@ -54,7 +62,9 @@ class CommentManager extends Manager
     {
         $db = $this->dbConnect();
         $deleteComments = $db->prepare('DELETE FROM comments WHERE idComments = ?');
-
+        if ($deleteComments == false) {
+            return false;
+        }
         $deleteComments->execute(array($comment));
     }
 

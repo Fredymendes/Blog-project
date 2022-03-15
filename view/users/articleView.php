@@ -9,6 +9,18 @@
     </ul>
 </nav>
 
+<?php if (isset($_SESSION['message'])) :?>
+<div class='alert alert-success'>
+    <?php echo $_SESSION['message'];
+    unset($_SESSION['message']);?>
+</div>
+<?php elseif (isset($_SESSION['warning_message'])) :?>
+    <div class='alert alert-danger'>
+        <?php echo $_SESSION['warning_message'];
+        unset($_SESSION['warning_message']);?>
+    </div>
+<?php endif; ?>
+
 <body>
     <div class="container">
         <h4 class="menu">Liste des articles</h4>

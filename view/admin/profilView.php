@@ -9,10 +9,22 @@
     </ul>
 </nav>
 
+<?php if (isset($_SESSION['message'])) :?>
+<div class='alert alert-success'>
+    <?php echo $_SESSION['message'];
+    unset($_SESSION['message']);?>
+</div>
+<?php elseif (isset($_SESSION['warning_message'])) :?>
+    <div class='alert alert-danger'>
+        <?php echo $_SESSION['warning_message'];
+        unset($_SESSION['warning_message']);?>
+    </div>
+<?php endif ?>
+
 <body>
     <div class="container-fluid">
-        <?php if (!isset($_SESSION['pseudo'])) :?>
-            <?php echo header("location : index.php"); ?>
+        <?php if (!isset($_SESSION['pseudo']) === 0) :?>
+            <?php header("location : index.php"); ?>
         <?php else :?>
         <h1 id="hero-admin" >Bonjour <?php echo $_SESSION['pseudo'] ?></h1>
         <?php endif; ?>

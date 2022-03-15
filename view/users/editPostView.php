@@ -7,6 +7,7 @@
     <li><a href="index.php?action=article">Retour dans votre espace article</a></li>
   </ul>
 </nav>
+
 <div class="container">
   <form class="content-hero" method="POST" action="index.php?action=updateValid&id=<?php echo $update->getIdPosts() ?>">
     <label for="title">Titre :</label>

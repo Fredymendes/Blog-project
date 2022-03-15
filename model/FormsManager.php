@@ -4,7 +4,7 @@ namespace App\model;
 
 class FormsManager extends Manager
 {
-    public function registerForm(Forms $form)
+    public function registerForm($form)
     {
         $db = $this->dbConnect();
         $formsUsers = $db->prepare(
@@ -17,7 +17,9 @@ class FormsManager extends Manager
         $formsUsers->bindValue(':object', $form->getObject(), \PDO::PARAM_STR);
         $formsUsers->bindValue(':email', $form->getEmail(), \PDO::PARAM_STR);
         $formsUsers->bindValue(':message', $form->getMessage(), \PDO::PARAM_STR);
-
+        if ($form == false) {
+            return false;
+        }
         $formsUsers->execute();
     }
 }

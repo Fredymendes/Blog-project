@@ -13,6 +13,9 @@ class PostManager extends Manager
         INNER JOIN users ON users.idUsers = posts.idUsers ORDER BY posts.creation_date DESC'
         );
         $listPosts = $listPosts->fetchAll();
+        if ($listPosts == false) {
+            return false;
+        }
         $p = [];
         foreach ($listPosts as $listPost) {
             //rajoute dans le tableau vide la variable comment sous forme d'objet
@@ -31,7 +34,7 @@ class PostManager extends Manager
         );
         $post->execute(array($idPosts));
         $posts = $post->fetch();
-        if ($posts == false) {
+        if ($posts === false) {
             return false;
         }
         $posts = new Post($posts);
@@ -50,7 +53,9 @@ class PostManager extends Manager
         $req->bindValue(':title', $postData->getTitle(), \PDO::PARAM_STR);
         $req->bindValue(':wording', $postData->getWording(), \PDO::PARAM_STR);
         $req->bindValue(':content', $postData->getContent(), \PDO::PARAM_STR);
-
+        if ($postData == false) {
+            return false;
+        }
         $req->execute();
     }
 
@@ -65,7 +70,9 @@ class PostManager extends Manager
         $req->bindValue(':wording', $updatePost->getWording(), \PDO::PARAM_STR);
         $req->bindValue(':content', $updatePost->getContent(), \PDO::PARAM_STR);
         $req->bindValue(':id', $updatePost->getIdPosts(), \PDO::PARAM_INT);
-
+        if ($updatePost == false) {
+            return false;
+        }
         $req->execute();
     }
 
@@ -74,5 +81,8 @@ class PostManager extends Manager
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM posts WHERE idPosts = ?');
         $req->execute(array($deletePost));
+        if ($deletePost == false) {
+            return false;
+        }
     }
 }

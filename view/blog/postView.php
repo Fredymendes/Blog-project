@@ -11,6 +11,18 @@
     </div>
 </header>
 
+<?php if (isset($_SESSION['message'])) :?>
+<div class='alert alert-success'>
+    <?php echo $_SESSION['message'];
+    unset($_SESSION['message']);?>
+</div>
+<?php elseif (isset($_SESSION['warning_message'])) :?>
+    <div class='alert alert-danger'>
+        <?php echo $_SESSION['warning_message'];
+        unset($_SESSION['warning_message']);?>
+    </div>
+<?php endif; ?>
+
 <?php ob_start(); ?>
 
 <article class="mb-4">
@@ -35,7 +47,6 @@ foreach ($listComments as $listComment) {
     <?php
 }
 ?>
-
 <?php if (!isset($_SESSION['role'])) :?>
 <div id="warning-conn">
     <p id="warn-message">Veuillez vous connectez afin d'envoyez un message</p>
