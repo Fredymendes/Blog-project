@@ -55,7 +55,7 @@ if (isset($_GET['action'])) {
             $_POST['password']
         );
     } elseif ($_GET['action'] == 'connectValid') {
-        $backend->addConnect($_POST['pseudo']);
+        $backend->connProfil($_POST['pseudo']);
     } elseif ($_GET['action'] == 'formValid') {
         $backend->addForm(
             $_POST['lastname'],

@@ -28,6 +28,15 @@ class BackendController
 
     public function adminConnect()
     {
+        /*$usersManager = new UsersManager();
+        $profil = $usersManager->connected($pseudo);
+        if ($profil === false) {
+            $_SESSION['warning_message'] = 'NON !!!';
+            header("location: index.php");
+            exit;
+        } else {
+            header("location: index.php?action=profil");
+        }*/
         include 'view/admin/profilView.php';
     }
 
@@ -79,7 +88,7 @@ class BackendController
             $_SESSION['warning_message'] = 'Cette article n\'existe pas !';
             header('Location: index.php?action=article');
             exit;
-        } elseif (isset($_SESSION['role']) == 0) {
+        } elseif (isset($_SESSION['role']) === 0) {
             $_SESSION['warning_message'] = 'Mais! vous n\'êtes pas autorisez d\'etre ici !!!';
             header("Location: index.php");
             exit;
@@ -136,9 +145,10 @@ class BackendController
         include 'view/admin/registerView.php';
     }
 
-    public function addConnect($pseudo)
+    public function connProfil($pseudo)
     {
         $usersManager = new UsersManager();
+
         if (isset($_POST['submit'])) {
             $resultat = $usersManager->connected($pseudo);
             $isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
@@ -146,15 +156,16 @@ class BackendController
             if (!$isPasswordCorrect) {
                 $_SESSION['warning_message'] = 'Mauvais mot de passe, veuillez recommencez';
                 header("Location: index.php?action=connect");
+                exit;
             } else {
                 $_SESSION['idUsers'] = $resultat['idUsers'];
-                $_SESSION['pseudo'] = $pseudo;
+                $_SESSION['pseudo'] = $resultat['pseudo'];
                 $_SESSION['role'] = $resultat['role'];
-                if ($resultat['role'] == 1) {
+                if ($resultat['role'] === 1) {
                     $_SESSION['message'] = 'Bienvenue Patron !';
                     header("Location: index.php?action=profil");
                     exit;
-                } else {
+                } elseif ($resultat['role'] === 0) {
                     $_SESSION['message'] = 'Bienvenue Printer !';
                     header("Location: index.php");
                     exit;
@@ -166,29 +177,29 @@ class BackendController
 
     public function addContent($postData)
     {
-        $contentPost = new PostManager();
+        //mettre une condition pour l'accées de l'admin
+        $postManager = new PostManager();
+
         if (isset($_POST['submit'])) {
             if (empty($_POST['title']) or empty($_POST['wording']) or empty($_POST['content'])) {
-                    $_SESSION['warning_message'] = 'Ooops le post n\'est pas passé...';
-                    header("Location: index.php?action=profil");
+                $_SESSION['warning_message'] = 'Ooops le post n\'est pas passé...';
+                header("Location: index.php?action=profil");
             } elseif (isset($_SESSION['idUsers'])) {
-                    $postData = new Post(
-                        [
+                $postData = new Post(
+                    [
                         'idUsers' => $_SESSION['idUsers'],
                         'title' => $_POST['title'],
                         'wording' => $_POST['wording'],
                         'content' => $_POST['content']
                         ]
-                    );
-                    $post = $contentPost->addPost($postData);
-            }
+                );
+                $post = $postManager->addPost($postData);
                 $_SESSION['message'] = 'Post envoyé!';
                 header("Location: index.php?action=profil");
-        } else {
-                include 'view/admin/profilView.php';
+            }
         }
+        include 'view/admin/profilView.php';
     }
-
 
     public function addForm($form)
     {

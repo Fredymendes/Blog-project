@@ -17,7 +17,7 @@ class UsersManager extends Manager
         $registerUsers->bindValue(':pseudo', $users->getPseudo(), \PDO::PARAM_STR);
         $registerUsers->bindValue(':email', $users->getEmail(), \PDO::PARAM_STR);
         $registerUsers->bindValue(':password', $users->getPassword(), \PDO::PARAM_STR);
-        if ($users == false) {
+        if ($users === false) {
             return false;
         }
         $registerUsers->execute();
@@ -26,13 +26,11 @@ class UsersManager extends Manager
     public function connected($pseudo)
     {
         $db = $this->dbConnect();
-        $connected = $db->prepare('SELECT idUsers, role, password FROM users WHERE pseudo = :pseudo');
-        $connected->execute(
-            array(
-            'pseudo' => $pseudo
-            )
-        );
-
+        $connected = $db->prepare('SELECT * FROM users WHERE pseudo = :pseudo');
+        $pseudo = $connected->execute(array('pseudo' => $pseudo));
+        if ($pseudo === false) {
+            return false;
+        }
         return $connected->fetch();
     }
 }

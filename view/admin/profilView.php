@@ -22,12 +22,9 @@
 <?php endif ?>
 
 <body>
-    <div class="container-fluid">
-        <?php if (!isset($_SESSION['pseudo']) === 0) :?>
-            <?php header("location : index.php"); ?>
-        <?php else :?>
+    <main class="mb-4">
+     <div class="container-fluid">
         <h1 id="hero-admin" >Bonjour <?php echo $_SESSION['pseudo'] ?></h1>
-        <?php endif; ?>
         <div class="menu-content">
             <h4 class="menu">Menu</h4>
             <a href="index.php?action=article">Mes articles</a>
@@ -47,7 +44,9 @@
                 <button class="btn btn-primary text-uppercase" 
                 id="submitButton" name="submit" type="submit">Printer</button>
             </form>
-        </div>
+        </div>   
+    </main>
+    
 </body>
 
 </html>

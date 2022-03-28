@@ -7,6 +7,7 @@ class Users extends Entity
     private $idUsers;
     private $lastName;
     private $firstName;
+    private $role;
     private $pseudo;
     private $email;
     private $password;
@@ -26,6 +27,11 @@ class Users extends Entity
     public function getFirstName()
     {
         return $this->firstName;
+    }
+
+    public function getRole()
+    {
+        return $this->role;
     }
 
     public function getPseudo()
@@ -69,6 +75,15 @@ class Users extends Entity
     {
         if (is_string($firstName)) {
             $this->firstName = $firstName;
+        }
+    }
+
+    public function setRole($role)
+    {
+        $role = (int) $role;
+
+        if ($role >= 0) {
+            $this->idUsers = $role;
         }
     }
 

@@ -13,7 +13,7 @@ class PostManager extends Manager
         INNER JOIN users ON users.idUsers = posts.idUsers ORDER BY posts.creation_date DESC'
         );
         $listPosts = $listPosts->fetchAll();
-        if ($listPosts == false) {
+        if ($listPosts === false) {
             return false;
         }
         $p = [];
@@ -53,7 +53,7 @@ class PostManager extends Manager
         $req->bindValue(':title', $postData->getTitle(), \PDO::PARAM_STR);
         $req->bindValue(':wording', $postData->getWording(), \PDO::PARAM_STR);
         $req->bindValue(':content', $postData->getContent(), \PDO::PARAM_STR);
-        if ($postData == false) {
+        if ($postData === false) {
             return false;
         }
         $req->execute();
