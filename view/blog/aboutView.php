@@ -78,7 +78,7 @@
                         </div>
                         <div class="form-floating">
                             <textarea class="form-control" id="message" name="message"
-                                placeholder="Enter your message here..." style="height: 12rem"
+                                placeholder="Enter your message here..."                
                                 data-sb-validations="required"></textarea>
                             <label for="message">Message :</label>
                         </div>

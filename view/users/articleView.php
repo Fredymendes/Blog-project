@@ -22,9 +22,9 @@
 <?php endif; ?>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <h4 class="menu">Liste des articles</h4>
-        <table class="table">
+        <table class="table w-auto">
             <thead>
                 <tr>
                     <th>#</th>

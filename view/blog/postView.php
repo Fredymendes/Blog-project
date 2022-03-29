@@ -52,11 +52,16 @@ foreach ($listComments as $listComment) {
     <p id="warn-message">Veuillez vous connectez afin d'envoyez un message</p>
 </div>
 <?php else :?>
-<form id="postmessage" method="POST" action="index.php?action=commentValid&amp;id=<?php echo $post->getIdPosts() ?>">
+    <div class="form-floating">
+     <form id="message" method="POST" action="index.php?action=commentValid&amp;id=<?php echo $post->getIdPosts() ?>">
     <label for="comment">Message :</label>
-    <textarea id="messagepost" name="comment" style="resize: none;"></textarea>
-    <input type="submit" class="btn btn-primary text-uppercase" name="submit" value="Envoyer le message">   
-</form> 
+    <textarea class="form-control" id="message" name="comment" style="height: 12rem"></textarea>
+    <!-- Submit Button-->
+    <button class="btn btn-primary text-uppercase" id="submitButton" name="submit"
+    type="submit">Printer</button>
+    </form>
+    </div>
+ 
 <?php endif; ?>
 
 <?php $content = ob_get_clean(); ?>

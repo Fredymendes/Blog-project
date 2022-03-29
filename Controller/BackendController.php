@@ -28,16 +28,13 @@ class BackendController
 
     public function adminConnect()
     {
-        /*$usersManager = new UsersManager();
-        $profil = $usersManager->connected($pseudo);
-        if ($profil === false) {
+        if (isset($_SESSION['role']) && $_SESSION['role'] == 1) {
+            include 'view/admin/profilView.php';
+        } else {
             $_SESSION['warning_message'] = 'NON !!!';
             header("location: index.php");
             exit;
-        } else {
-            header("location: index.php?action=profil");
-        }*/
-        include 'view/admin/profilView.php';
+        }
     }
 
     public function formConnect()
@@ -177,7 +174,6 @@ class BackendController
 
     public function addContent($postData)
     {
-        //mettre une condition pour l'accées de l'admin
         $postManager = new PostManager();
 
         if (isset($_POST['submit'])) {
