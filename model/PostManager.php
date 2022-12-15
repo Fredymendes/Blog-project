@@ -79,10 +79,12 @@ class PostManager extends Manager
     public function deletePost($deletePost)
     {
         $db = $this->dbConnect();
+        // Supprimer les commentaires associés au post
+        $req = $db->prepare('DELETE FROM comments WHERE idPosts = ?');
+        $req->execute(array($deletePost));
+        // Supprimer le post
         $req = $db->prepare('DELETE FROM posts WHERE idPosts = ?');
         $req->execute(array($deletePost));
-        if ($deletePost == false) {
-            return false;
-        }
+        return true;
     }
 }
